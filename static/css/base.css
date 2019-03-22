@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+li {
+    list-style: none;
+}
+
+.footer {
+    margin-top: 40px;
+    color: #ffeaea;
+    font-size: 13px;
+    text-align: center;
+}
+
+.footer a {
+    color: #4daaff;
+}
