@@ -7,6 +7,10 @@ input {
     border: none;
 }
 
+body {
+    background: url("../img/bg.jpeg") fixed;
+}
+
 a {
     text-decoration: none;
 }
