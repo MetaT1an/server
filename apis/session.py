@@ -33,7 +33,7 @@ class Session(Resource):
                 'data': {
                     'id': user.id,
                     'username': user.username,
-                    'token': Session.gen_token(user.id)
+                    'token': Session.gen_token(user)
                 }
             }
         else:
