@@ -1,0 +1,35 @@
+.main-m li {
+    float: left;
+    text-align: center;
+    display: inline-block;
+    margin-right: 70px;
+}
+
+.main-m li a {
+    color: #4daaff;
+}
+
+#create, #task{
+    height: 128px;
+    width: 128px;
+}
+
+#create {
+    background: url("../img/create.png");
+}
+
+#create:hover {
+    background: url("../img/create_g.png");
+}
+
+#task {
+    background: url("../img/task.png");
+}
+
+#task:hover {
+    background: url("../img/task_g.png");
+}
+
+#soon {
+    color: #bfbfbf;
+}
