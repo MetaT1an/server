@@ -97,13 +97,12 @@ function err_clear() {
     $(".err").text("")
 }
 
-function success_style(info) {
+function success_style() {
     let info_box = $(".err");
     info_box.css({
         color: "#fff",
         background: "#89ee90"
     });
-    info_box.text(info)
 }
 
 function to_index() {
