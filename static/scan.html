@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New scan</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/scan.css">
+</head>
+<body>
+    <div class="header-m">
+        <h1>DVSS scan</h1>
+    </div>
+    <div class="nav">
+        <ol class="am-breadcrumb">
+            <li><a href="index.html">home</a></li>
+            <li class="am-active">scan</li>
+        </ol>
+    </div>
+    <div class="status">
+        <span id="info">Note: All the invalid scanning targets will be ignored automatically by the system!!</span>
+        <span id="greet">Welcome, </span>
+        <span id="usr"></span>
+    </div>
+
+    <div class="main-m">
+        <div class="name">
+            <label for="t-name">Task Name: </label>
+            <input type="text" id="t-name" placeholder="less than 30 letters">
+        </div>
+
+        <div class="target">
+            <!-- ajax load -->
+        </div>
+
+    </div>
+    <div class="contrl">
+        <div class="err"></div>
+        <button class="am-btn am-btn-secondary am-radius more am-btn-sm">target ++</button>
+        <button class="am-btn am-btn-danger am-radius less am-btn-sm">target--</button>
+        <button class="am-btn am-btn-success am-radius create am-btn-sm">submit</button>
+    </div>
+
+    <div class="footer">
+        Copyright © 2019, <a href="https://github.com/MetaT1an">DVSS</a> All Rights Reserved
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/status.js"></script>
+    <script src="js/scan.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <div class="main"></div>
+</body>
+</html>
