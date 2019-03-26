@@ -27,7 +27,7 @@ class Task(db.Model):
     uid = db.Column(db.Integer, nullable=False)
     tname = db.Column(db.String(35), nullable=False)
     date = db.Column(db.String(20))
-    status = db.Column(db.Integer)      # 0 for undo, 1 for scanning, 2 for done
+    status = db.Column(db.Integer)      # 0 for undo, 1 for running, 2 for completed
 
 
 class Host(db.Model):

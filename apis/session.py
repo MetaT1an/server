@@ -18,7 +18,7 @@ class Session(Resource):
                 'data': {
                     'id': user.id,
                     'username': user.username,
-                    'token': Token.gen_token(user)
+                    'token': Token.gen_token(user.id)
                 }
             }
         else:

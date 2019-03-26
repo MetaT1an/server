@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from app import db
 import models as md
-from apis.session import Session
+from utils import Token
 
 
 class User(Resource):
@@ -30,7 +30,7 @@ class User(Resource):
         elif md.User.query.filter_by(email=args['email']).count():
             r = {'status': False, 'msg': "email has been registered"}
         else:
-            # if not exists in database
+            # if not exists in database, create new record
             new_user = md.User(username=args['username'], email=args['email'], admin=False)
             new_user.set_password(args['password'])
 
@@ -42,7 +42,7 @@ class User(Resource):
                 'data': {
                     'id': new_user.id,
                     'username': new_user.username,
-                    'token': Session.gen_token(new_user)
+                    'token': Token.gen_token(new_user.id)
                 }
             }
         return r
