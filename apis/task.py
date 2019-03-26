@@ -76,10 +76,10 @@ class Tasks(Resource):
     def get(self, token):
         uid = Token.check_token(token)
         if not uid:
-            return {'status': False, 'msg': "invalid token"}
+            r = {'status': False, 'msg': "invalid token"}
         else:
             r = {'status': True, 'data': []}
             task_list = md.Task.query.filter(md.Task.uid == uid).order_by(md.Task.id.desc()).all()
             for task in task_list:
                 r['data'].append({'tid': task.id, 'tname': task.tname, 'date': task.date, 'status': task.status})
-            return r
+        return r
