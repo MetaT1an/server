@@ -1,0 +1,31 @@
+.main-m {
+    padding-top: 10px;
+}
+
+.main-m span {
+    display: inline-block;
+    width: 240px;
+    text-align: center;
+    color: #666666;
+}
+
+.main-m #title span {
+    font-weight: 600;
+}
+
+.am-progress {
+    margin: 0;
+}
+
+.content span {
+    padding: 10px 0;
+}
+
+.content .item {
+    border-bottom: 1px solid #ccc;
+}
+
+.content button {
+    margin-right: 4px;
+    padding: .4em .8em;
+}
