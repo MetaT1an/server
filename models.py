@@ -33,7 +33,7 @@ class Task(db.Model):
 class Host(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tid = db.Column(db.Integer)     # task id, define while creating
-    hname = db.Column(db.String(35), nullable=False)
+    hname = db.Column(db.String(35), nullable=False)    # task name
     status = db.Column(db.String(15))
     policy = db.Column(db.String(15))   # define while creating
     start = db.Column(db.String(20))

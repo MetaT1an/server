@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/task.css">
+</head>
+<body>
+    <div class="header-m">
+        <h1>DVSS tasks</h1>
+    </div>
+    <div class="nav">
+        <ol class="am-breadcrumb">
+            <li><a href="index.html">home</a></li>
+            <li class="am-active">tasks</li>
+        </ol>
+    </div>
+
+    <div class="status">
+        <span id="greet">Welcome, </span>
+        <span id="usr"></span>
+    </div>
+    <div class="main-m">
+        <div id="title">
+            <span class="tname">Task name</span>
+            <span class="date">Created time</span>
+            <span class="state">Status</span>
+            <span class="op">Operation</span>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">DVSS task</div>
+            <div class="am-modal-bd">Sure to delete the task?</div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
+                <span class="am-modal-btn" data-am-modal-confirm>Confirm</span>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/status.js"></script>
+    <script src="js/task.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+</body>
+</html>
