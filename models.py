@@ -32,7 +32,7 @@ class Task(db.Model):
 
 class Host(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    tid = db.Column(db.Integer)     # task id, define while creating
+    tid = db.Column(db.Integer, nullable=False)     # task id, define while creating
     hname = db.Column(db.String(35), nullable=False)    # task name
     status = db.Column(db.String(15))
     policy = db.Column(db.String(15))   # define while creating
@@ -45,3 +45,12 @@ class Host(db.Model):
     medium = db.Column(db.Integer)
     low = db.Column(db.Integer)
     info = db.Column(db.Integer)
+
+
+class Vul(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    hid = db.Column(db.Integer, nullable=False)
+    severity = db.Column(db.Integer)
+    pluginname = db.Column(db.String(100))
+    pluginset = db.Column(db.String(30))
+    count = db.Column(db.Integer)
