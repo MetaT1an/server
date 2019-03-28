@@ -32,6 +32,11 @@ class Task(Resource):
                 r = {'status': False, 'msg': "missing target"}
         return r
 
+    """
+    when task is submitted ,this method will be called
+    1. update the status of the task
+    2. create a new process to launch a new celery-based distributed task for scanning
+    """
     def put(self, token, task_id):
         uid = Token.check_token(token)
         if not uid:
