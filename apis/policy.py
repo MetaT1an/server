@@ -3,20 +3,11 @@ from app import db
 import models as md
 
 
-class Policy(Resource):
+class Policies(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('pname')
         self.parser.add_argument('description')
-
-    def get(self, p_id):
-        policy = md.Policy.query.filter_by(id=p_id).first()
-        if policy:
-            r = {'status': True, 'pname': policy.pname, 'description': policy.description}
-        else:
-            r = {'status': False, 'msg': "no such policy"}
-
-        return r
 
     def get(self):
         policy_list = md.Policy.query.all()
@@ -26,6 +17,17 @@ class Policy(Resource):
             'status': True,
             'data': policies
         }
+
+
+class Policy(Resource):
+    def get(self, p_id):
+        policy = md.Policy.query.filter_by(id=p_id).first()
+        if policy:
+            r = {'status': True, 'pname': policy.pname, 'description': policy.description}
+        else:
+            r = {'status': False, 'msg': "no such policy"}
+
+        return r
 
     def post(self):
         args = self.parser.parse_args()
