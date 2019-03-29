@@ -59,7 +59,7 @@ class Host(Resource):
                 host.end = args['end']
                 host.elapse = args['elapse']
                 host.critical = args['critical']
-                host.high = args['hist']
+                host.high = args['high']
                 host.medium = args['medium']
                 host.low = args['low']
                 host.info = args['info']

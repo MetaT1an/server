@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/report.css">
+</head>
+<body>
+    <div class="header-m">
+        <h1>DVSS report</h1>
+    </div>
+
+    <div class="nav">
+        <ol class="am-breadcrumb">
+            <li><a href="index.html">home</a></li>
+            <li><a href="task.html">task</a></li>
+            <li class="am-active">report</li>
+        </ol>
+    </div>
+
+    <div class="status">
+        <span id="greet">Welcome, </span>
+        <span id="usr"></span>
+    </div>
+
+    <div class="main-m">
+        <div class="chooser">
+            <div id="hosts">
+                <select data-am-selected>
+                </select>
+            </div>
+            <button class="am-btn am-btn-success am-radius" id="query">query</button>
+        </div>
+        <div id="display">
+            <div id="pie">
+                <h3>Vulnerabilities</h3>
+                <canvas id="chart"></canvas>
+            </div>
+            <div id="info">
+                <h3>Details</h3>
+                <p><span class="tag">Name: </span><span id="name"></span></p>
+                <p><span class="tag">Status: </span><span id="status"></span></p>
+                <p><span class="tag">Policy: </span><span id="policy"></span></p>
+                <p><span class="tag">Start: </span><span id="start"></span></p>
+                <p><span class="tag">End: </span><span id="end"></span></p>
+                <p><span class="tag">Elapsed: </span><span id="elapse"></span></p>
+                <p><span class="tag">Target: </span><span id="target"></span></p>
+            </div>
+        </div>
+
+        <div id="vul">
+                <table class="am-table am-table-bordered am-table-striped am-table-hover am-table-radius">
+                    <thead>
+                        <tr>
+                            <th>Severity</th>
+                            <th>Plugin Name</th>
+                            <th>Plugin Set</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/status.js"></script>
+    <script src="js/report.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+</body>
+</html>
