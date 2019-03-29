@@ -43,13 +43,12 @@ class Task(Resource):
             r = {'status': False, 'msg': "invalid token"}
         else:
             task = md.Task.query.filter_by(id=task_id, uid=uid).first()
+            user = md.User.query.filter_by(id=uid).first()
             if task:
                 # to create a new process to start distributed task, making this request immediately return
-                scan_process = multiprocessing.Process(target=celery_task.launch, args=(task.id, token))
+                scan_process = multiprocessing.Process(target=celery_task.launch, args=(task.id, token, user.email))
                 scan_process.start()
 
-                task.status = 1
-                db.session.commit()
                 r = {'status': True, 'data': ""}
             else:
                 r = {'status': False, 'msg': "missing target"}
