@@ -35,7 +35,7 @@ class Vuls(Resource):
         uid = Token.check_token(token)
         if uid:
             r = {'status': True, 'data': []}
-            vul_list = md.Vul.query.filter(md.Vul.hid == host_id).order_by(md.Task.id.desc()).all()
+            vul_list = md.Vul.query.filter(md.Vul.hid == host_id).order_by(md.Vul.severity.desc()).all()
             for vul in vul_list:
                 r['data'].append({
                     'severity': self.severity_dict[vul.severity],
