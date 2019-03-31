@@ -41,7 +41,7 @@ function check_all() {
         return false;
     } else {
         $.ajax({
-           url: "http://127.0.0.1:5000/session",
+           url: "/session",
            dataType: "json",
            async: true,
            type: "post",

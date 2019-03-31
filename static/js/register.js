@@ -67,7 +67,7 @@ function check_all() {
         let pwd = $("#pwd").val();
 
         $.ajax({
-            url: "http://127.0.0.1:5000/user",
+            url: "/user",
             dataType: "json",
             async: true,
             type: "post",

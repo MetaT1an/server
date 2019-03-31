@@ -43,7 +43,7 @@ function query_event() {
         $("tbody").empty();
 
         $.ajax({
-            url: "http://127.0.0.1:5000/" + usr_info.token + "/host/" + hid,
+            url: "/" + usr_info.token + "/host/" + hid,
             type: "get",
             async: true,
             dataType: "json",
@@ -70,7 +70,7 @@ function query_event() {
         });
 
         $.ajax({
-            url: "http://127.0.0.1:5000/" + usr_info.token + "/host/" + hid + "/vuls",
+            url: "/" + usr_info.token + "/host/" + hid + "/vuls",
             type: "get",
             async: true,
             dataType: "json",
@@ -88,7 +88,7 @@ function get_hosts_selector() {
     let tid = sessionStorage.tid;
     if(tid){
         $.ajax({
-            url: "http://127.0.0.1:5000/" + usr_info.token +"/task/" + tid + "/hosts",
+            url: "/" + usr_info.token +"/task/" + tid + "/hosts",
             type: "get",
             async: true,
             dataType: "json",

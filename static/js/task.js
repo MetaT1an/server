@@ -9,7 +9,7 @@ $(function () {
 
 function get_tasks() {
     $.ajax({
-        url: "http://127.0.0.1:5000/" + usr_info.token + "/tasks",
+        url: "/" + usr_info.token + "/tasks",
         dataType: "json",
         async: true,
         type: "get",
@@ -63,7 +63,7 @@ function task_start_event() {
             "<div class=\"am-progress-bar am-progress-bar-success\"  style=\"width: 40%\"></div>\n"+
             "</div>";
         $.ajax({
-            url: "http://127.0.0.1:5000/" + usr_info.token + "/task/" + tid,
+            url: "/" + usr_info.token + "/task/" + tid,
             dataType: "json",
             async: true,
             type: "put",
@@ -86,7 +86,7 @@ function task_delete_event() {
         $("#my-confirm").modal({
             onConfirm: function () {
                 $.ajax({
-                    url: "http://127.0.0.1:5000/" + usr_info.token + "/task/" + tid,
+                    url: "/" + usr_info.token + "/task/" + tid,
                     dataType: "json",
                     async: true,
                     type: "delete",

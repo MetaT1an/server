@@ -15,7 +15,7 @@ function get_policy_selector() {
     $.ajax({
         async: true,
         type: "get",
-        url: "http://127.0.0.1:5000/policies",
+        url: "/policies",
         success: function (r) {
             if(r.status){
                 $.each(r.data, function () {
@@ -92,7 +92,7 @@ function submit_event() {
 
         // 5. submit
         $.ajax({
-            url: "http://127.0.0.1:5000/task",
+            url: "/task",
             dataType: "json",
             async: true,
             type: "post",
