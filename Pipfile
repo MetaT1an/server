@@ -12,6 +12,9 @@ flask-sqlalchemy = "*"
 pymysql = "*"
 itsdangerous = "*"
 dnspython = "*"
+celery = "*"
+redis = "*"
+requests = "*"
 
 [requires]
 python_version = "3.6"
