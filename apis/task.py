@@ -5,7 +5,8 @@ import multiprocessing
 from flask_restful import Resource, reqparse
 from app import db
 import models as md
-from utils import dns, celery_task, Token
+from utils import dns, Token
+from manager import celery_task
 
 
 class Task(Resource):

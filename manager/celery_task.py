@@ -2,7 +2,7 @@ import celery
 import requests
 import time
 import threading
-from utils.mail import mail_sender
+from manager.mail import mail_sender
 
 broker_url = "amqp://192.168.2.12"
 backend_url = "redis://192.168.2.12"
