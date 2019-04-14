@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
+from flask import request
 from app import db
-from utils import Token
+from utils import token, msg
 import models as md
 
 
@@ -14,24 +15,34 @@ class TaskStatus(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('status')
 
-    def put(self, token, task_id):
-        args = self.parser.parse_args()
-        uid = Token.check_token(token)
-        status = args['status']
-        if uid and TaskStatus.valid_status(status):
-            task = md.Task.query.filter_by(id=task_id).first()
-            task.status = int(status)    # change status
-            db.session.commit()
-            r = {'status': True, 'data': ""}
+    def put(self, task_id):
+        args, tk = self.parser.parse_args(), request.headers.get('Authorization')
+        if not tk:
+            r = msg.auth_fail_msg
         else:
-            r = {'status': False, 'msg': "invalid token or status"}
+            uid = token.check_token(tk)
+            if not uid:
+                r = msg.token_invalid_msg
+            else:
+                status = args['status']
+                if TaskStatus.valid_status(status):
+                    task = md.Task.query.filter_by(id=task_id).first()
+                    task.status = int(status)  # change status
+                    db.session.commit()
+                    r = msg.success_msg
+                else:
+                    r = msg.invalid_data_msg
         return r
 
-    def get(self, token, task_id):
-        uid = Token.check_token(token)
-        if uid:
-            task = md.Task.query.filter_by(id=task_id).first()
-            r = {'status': True, 'data': task.status}
+    def get(self, task_id):
+        tk = request.headers.get('Authorization')
+        if not tk:
+            r = msg.auth_fail_msg
         else:
-            r = {'status': False, 'msg': "invalid token"}
+            uid = token.check_token(token)
+            if uid:
+                task = md.Task.query.filter_by(id=task_id).first()
+                r = {'status': True, 'data': task.status}
+            else:
+                r = msg.token_invalid_msg
         return r

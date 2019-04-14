@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from app import db
 import models as md
-from utils import Token
+from utils import token
 
 
 class User(Resource):
@@ -40,9 +40,8 @@ class User(Resource):
             r = {
                 'status': True,
                 'data': {
-                    'id': new_user.id,
                     'username': new_user.username,
-                    'token': Token.gen_token(new_user.id)
+                    'token': token.gen_token(new_user.id)
                 }
             }
         return r

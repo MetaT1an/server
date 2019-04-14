@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 import models as md
-from utils import Token
+from utils import token
 
 
 class Session(Resource):
@@ -18,7 +18,7 @@ class Session(Resource):
                 'data': {
                     'id': user.id,
                     'username': user.username,
-                    'token': Token.gen_token(user.id)
+                    'token': token.gen_token(user.id)
                 }
             }
         else:
