@@ -93,11 +93,11 @@ function submit_event() {
         // 5. submit
         $.ajax({
             url: "/task",
+            headers: {Authorization: usr_info.token},
             dataType: "json",
             async: true,
             type: "post",
             data: {
-                "token": usr_info.token,
                 "tname": $("#t-name").val(),
                 "hosts": JSON.stringify(sub_tasks)      //convert to python list in backend
             },
@@ -105,6 +105,8 @@ function submit_event() {
                 if(r.status){
                     success_style();
                     to_task_page();
+                } else {
+                    console.log(r.msg);
                 }
             }
         })

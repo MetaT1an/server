@@ -13,7 +13,7 @@ $(function () {
 function gen_chart() {
     let ctx = $("#chart");
 
-    let label_set = ['Critical', 'High', 'Medium', 'low', 'info'];
+    let label_set = ['Critical', 'High', 'Medium', 'Low', 'Info'];
     let color_set = ['#D62710', '#ED9A00', '#F9D400', '#2aa44a', '#357abd'];
     let border_width_set = [2, 2, 2, 2, 2];
     let border_color_set = ['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.4)'];
@@ -43,7 +43,8 @@ function query_event() {
         $("tbody").empty();
 
         $.ajax({
-            url: "/" + usr_info.token + "/host/" + hid,
+            url: "/host/" + hid,
+            headers: {Authorization: usr_info.token},
             type: "get",
             async: true,
             dataType: "json",
@@ -65,12 +66,15 @@ function query_event() {
 
                     $("#pie, #info").show();
                     my_chart.update()
+                } else {
+                    console.log(r.msg);
                 }
             }
         });
 
         $.ajax({
-            url: "/" + usr_info.token + "/host/" + hid + "/vuls",
+            url: "/host/" + hid + "/vuls",
+            headers: {Authorization: usr_info.token},
             type: "get",
             async: true,
             dataType: "json",
@@ -78,6 +82,8 @@ function query_event() {
                 if(r.status){
                     gen_vuls_table(r.data);
                     $("#vul").show();
+                } else {
+                    console.log(r.msg);
                 }
             }
         })
@@ -88,13 +94,16 @@ function get_hosts_selector() {
     let tid = sessionStorage.tid;
     if(tid){
         $.ajax({
-            url: "/" + usr_info.token +"/task/" + tid + "/hosts",
+            url: "/task/" + tid + "/hosts",
+            headers: {Authorization: usr_info.token},
             type: "get",
             async: true,
             dataType: "json",
             success: function (r) {
                 if(r.status){
                     gen_hosts_selector(r.data)
+                } else {
+                    console.log(r.msg);
                 }
             }
         });
@@ -118,5 +127,4 @@ function gen_vuls_table(vuls) {
 
         $("tbody").append(table_line);
     }
-
 }

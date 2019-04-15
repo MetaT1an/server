@@ -9,13 +9,16 @@ $(function () {
 
 function get_tasks() {
     $.ajax({
-        url: "/" + usr_info.token + "/tasks",
+        url: "/tasks",
+        headers: {"Authorization": usr_info.token},
         dataType: "json",
         async: true,
         type: "get",
         success: function (r) {
             if(r.status){
                 gen_tasks(r.data);
+            } else {
+                console.log(r.msg);
             }
         }
     })
@@ -63,7 +66,8 @@ function task_start_event() {
             "<div class=\"am-progress-bar am-progress-bar-success\"  style=\"width: 40%\"></div>\n"+
             "</div>";
         $.ajax({
-            url: "/" + usr_info.token + "/task/" + tid,
+            url: "/task/" + tid,
+            headers: {"Authorization": usr_info.token},
             dataType: "json",
             async: true,
             type: "put",
@@ -71,7 +75,7 @@ function task_start_event() {
                 if(r.status){
                     $start_btn.parent().html(progress_bar);
                 } else {
-                    // modal
+                    console.log(r.msg);
                 }
             }
         })
@@ -86,7 +90,8 @@ function task_delete_event() {
         $("#my-confirm").modal({
             onConfirm: function () {
                 $.ajax({
-                    url: "/" + usr_info.token + "/task/" + tid,
+                    url: "/task/" + tid,
+                    headers: {"Authorization": usr_info.token},
                     dataType: "json",
                     async: true,
                     type: "delete",
