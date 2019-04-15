@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from app import db
 import models as md
-from utils import token
+from utils import token, msg
 
 
 class User(Resource):
@@ -17,7 +17,7 @@ class User(Resource):
         if user:
             r = {'status': True, 'username': user.username, 'email': user.email}
         else:
-            r = {'status': False, 'msg': "no such user"}
+            r = msg.error_msg("no such user")
 
         return r
 
@@ -26,9 +26,9 @@ class User(Resource):
 
         # 1. query if such name exists
         if md.User.query.filter_by(username=args['username']).count():
-            r = {'status': False, 'msg': "username has been used"}
+            r = msg.error_msg("username has been used")
         elif md.User.query.filter_by(email=args['email']).count():
-            r = {'status': False, 'msg': "email has been registered"}
+            r = msg.error_msg("email has been registered")
         else:
             # if not exists in database, create new record
             new_user = md.User(username=args['username'], email=args['email'], admin=False)

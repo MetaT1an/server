@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from app import db
 import models as md
+from utils import msg
 
 
 class Policies(Resource):
@@ -25,7 +26,7 @@ class Policy(Resource):
         if policy:
             r = {'status': True, 'pname': policy.pname, 'description': policy.description}
         else:
-            r = {'status': False, 'msg': "no such policy"}
+            r = msg.error_msg("no such policy")
 
         return r
 
@@ -33,11 +34,11 @@ class Policy(Resource):
         args = self.parser.parse_args()
 
         if md.Policy.query.filter_by(pname=args['pname']).count():
-            r = {'status': False, 'msg': "policy name has been used"}
+            r = msg.error_msg("policy name has been used")
         else:
             new_policy = md.Policy(pname=args['pname'], description=args['description'])
             db.session.add(new_policy)
             db.session.commit()
-            r = {'status': True}
+            r = msg.success_msg
 
         return r

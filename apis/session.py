@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 import models as md
-from utils import token
+from utils import token, msg
 
 
 class Session(Resource):
@@ -22,8 +22,5 @@ class Session(Resource):
                 }
             }
         else:
-            r = {
-                'status': False,
-                'msg': "username or password error"
-            }
+            r = msg.error_msg("username or password error")
         return r
