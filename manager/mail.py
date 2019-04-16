@@ -56,6 +56,3 @@ class MailSender(object):
                 send_num += 1
 
         self.msg = MIMEMultipart()      # reset msg content
-
-
-mail_sender = MailSender()

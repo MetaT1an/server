@@ -1,24 +1,28 @@
 import celery
 import requests
 import time
-import threading
-from manager.mail import mail_sender
+from concurrent.futures import ThreadPoolExecutor
+from manager.mail import MailSender
 
 broker_url = "amqp://192.168.2.12"
 backend_url = "redis://192.168.2.12"
 api_url = "http://127.0.0.1:5000"
 
 app = celery.Celery(broker=broker_url, backend=backend_url)
+executor = ThreadPoolExecutor(4)
 
 
 def launch(task_id, token, email):
+    mail_sender = MailSender()
+    headers = {'Authorization': token}
+
     # task status change
-    status_url = api_url + "/{0}/task/{1}/status".format(token, task_id)
-    requests.put(status_url, json={'status': 1}, verify=False)
+    status_url = api_url + "/task/{0}/status".format(task_id)
+    requests.put(status_url, json={'status': 1}, verify=False, headers=headers)
 
     # 1. get all the hosts in task via given task_id
-    hosts_url = api_url + "/{0}/task/{1}/hosts".format(token, task_id)
-    r = requests.get(hosts_url, verify=False)
+    hosts_url = api_url + "/task/{0}/hosts".format(task_id)
+    r = requests.get(hosts_url, verify=False, headers=headers)
     host_list = r.json()['data']
 
     # ===2. create distributed tasks with celery===
@@ -36,9 +40,10 @@ def launch(task_id, token, email):
                 task_list.remove(task)     # task which is completed
                 data = task.get()
 
-                # 1. update data to database IN NEW THREAD
-                data_save_thread = threading.Thread(target=data_save, args=(data['vulns'], data['details'], token))
-                data_save_thread.start()
+                # 1. update data to database ThreadPoolExecutor
+                # data_save_thread = threading.Thread(target=data_save, args=(data['vulns'], data['details'], headers))
+                # data_save_thread.start()
+                executor.submit(data_save, data['vulns'], data['details'], headers)
 
                 # 2. generate mail attachment(scan report)
                 report_name = "{0}_report.html".format(data['details']['target'])
@@ -48,10 +53,10 @@ def launch(task_id, token, email):
     # 4. all task finished, email notification
     mail_sender.reliable_send(email)
 
-    requests.put(status_url, json={'status': 2}, verify=False)
+    requests.put(status_url, json={'status': 2}, verify=False, headers=headers)
 
 
-def data_save(vulns, details, token):
+def data_save(vulns, details, headers):
     hid = details['name']
 
     # update host information
@@ -66,14 +71,13 @@ def data_save(vulns, details, token):
         'low': vulns['low_num'],
         'info': vulns['info_num']
     }
-    host_put_url = api_url + "/{0}/host/{1}".format(token, hid)
-    requests.put(host_put_url, json=data, verify=False)
+    host_put_url = api_url + "/host/{0}".format(hid)
+    requests.put(host_put_url, json=data, verify=False, headers=headers)
 
     # create vulnerabilities information
     vul_list = vulns['list']
     for vul in vul_list:
         data = {
-            'token': token,
             'hid': hid,
             'severity': vul['severity'],
             'pluginset': vul['pluginset'],
@@ -81,4 +85,4 @@ def data_save(vulns, details, token):
             'count': vul['count']
         }
         vul_post_url = api_url + "/vul"
-        requests.post(vul_post_url, json=data)
+        requests.post(vul_post_url, json=data, headers=headers)
