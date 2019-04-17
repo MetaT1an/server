@@ -15,6 +15,9 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.pwdhash, password)
 
+    def is_admin(self):
+        return self.admin
+
 
 class Policy(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,3 +57,11 @@ class Vul(db.Model):
     pluginname = db.Column(db.String(100))
     pluginset = db.Column(db.String(30))
     count = db.Column(db.Integer)
+
+
+class Scanner(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ip = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), nullable=False)
+    password = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.Integer, nullable=False)
