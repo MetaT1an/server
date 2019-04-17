@@ -62,19 +62,15 @@ function check_all() {
     if(!flag){
         return false;
     } else {
-        let name = $("#name").val();
-        let email = $("#email").val();
-        let pwd = $("#pwd").val();
-
         $.ajax({
             url: "/user",
             dataType: "json",
             async: true,
             type: "post",
             data: {
-                "username": name,
-                "email": email,
-                "password": pwd
+                "username": $("#name").val(),
+                "email": $("#email").val(),
+                "password": $("#pwd").val()
             },
             success: function (r) {
                 if(r.status){

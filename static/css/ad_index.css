@@ -1,0 +1,35 @@
+.main-m li {
+    float: left;
+    text-align: center;
+    display: inline-block;
+    margin-right: 70px;
+}
+
+.main-m li a {
+    color: #4daaff;
+}
+
+#add, #status{
+    height: 128px;
+    width: 128px;
+}
+
+#add {
+    background: url("../img/new_scanner.png");
+}
+
+#add:hover {
+    background: url("../img/new_scanner_g.png");
+}
+
+#status {
+    background: url("../img/scanners.png");
+}
+
+#status:hover {
+    background: url("../img/scanners_g.png");
+}
+
+#soon {
+    color: #bfbfbf;
+}
