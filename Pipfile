@@ -15,6 +15,7 @@ dnspython = "*"
 celery = "*"
 redis = "*"
 requests = "*"
+fabric = "*"
 
 [requires]
 python_version = "3.6"
