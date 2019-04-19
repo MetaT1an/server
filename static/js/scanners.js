@@ -97,23 +97,27 @@ function undeploy_event() {
 
 function delete_event() {
     $("body").delegate(".delete", "click", function () {
-        $("#my-modal-loading").modal();
-        $.ajax({
-            url: "/scanner/" + $(this).attr("name"),
-            headers: {'Authorization': usr_info.token},
-            dataType: "json",
-            async: true,
-            type: "delete",
-            success: function (r) {
-                $("#my-modal-loading").modal('close');
-                if(r.status){
-                    $(".content").empty();
-                    get_scanners();
-                } else {
-                    show_alert(r.msg)
-                }
+        $("#my-confirm").modal({
+            onConfirm: function () {
+                $.ajax({
+                    url: "/scanner/" + $(this).attr("name"),
+                    headers: {'Authorization': usr_info.token},
+                    dataType: "json",
+                    async: true,
+                    type: "delete",
+                    success: function (r) {
+                        $("#my-modal-loading").modal('close');
+                        if(r.status){
+                            $(".content").empty();
+                            get_scanners();
+                        } else {
+                            show_alert(r.msg)
+                        }
+                    }
+                })
             }
-        })
+        }); //modal
+
     })
 }
 

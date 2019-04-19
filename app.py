@@ -19,6 +19,9 @@ from apis.task import Task, Tasks
 from apis.host import Host, Hosts
 from apis.vul import Vul, Vuls
 from apis.task_status import TaskStatus
+from apis.admin import AdminSession
+from apis.scanner import Scanner, Scanners
+from apis.scanner_status import ScannerStatus
 
 api.add_resource(User, '/user/<int:user_id>', endpoint='user_get')      # get user info by id
 api.add_resource(User, '/user', endpoint='user_post')       # register
@@ -35,8 +38,14 @@ api.add_resource(Host, '/host/<int:host_id>', endpoint='host_put')   # scan resu
 api.add_resource(Hosts, '/task/<int:task_id>/hosts', endpoint='hosts_get')  # get hosts list
 api.add_resource(Vul, '/vul', endpoint='vul_post')  # create new vul
 api.add_resource(Vuls, '/host/<int:host_id>/vuls', endpoint='vuls_get')
-api.add_resource(TaskStatus, '/task/<int:task_id>/status', endpoint='status_put')
-api.add_resource(TaskStatus, '/task/<int:task_id>/status', endpoint='status_get')     # query task status
+api.add_resource(TaskStatus, '/task/<int:task_id>/status', endpoint='t_status_put')
+api.add_resource(TaskStatus, '/task/<int:task_id>/status', endpoint='t_status_get')     # query task status
+
+api.add_resource(AdminSession, '/admin', endpoint='admin_session_post')
+api.add_resource(Scanner, '/scanner', endpoint='scanner_post')
+api.add_resource(Scanner, '/scanner/<int:scanner_id>', endpoint='scanner_put')
+api.add_resource(Scanners, '/scanners', endpoint='scanners_get')
+api.add_resource(ScannerStatus, '/scanner/<int:scanner_id>/status', endpoint='s_status_put')
 
 
 # index page
