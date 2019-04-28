@@ -6,8 +6,7 @@ $(function () {
     $("#email").blur(check_email);
     $("#pwd").blur(check_pwd);
     $("#pwdag").blur(check_pwdag);
-    $("#register").click(check_all)
-
+    $("#confirm").click(check_all)
 });
 
 function check_name() {

@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__, static_url_path='')
 
 # configuration of database
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:root@192.168.2.12/dvss"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:root@192.168.2.12/dvss?charset=utf8"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 api = Api(app)
