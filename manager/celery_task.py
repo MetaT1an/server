@@ -32,6 +32,8 @@ def launch(task_id, token, email):
         task_list.append(task)      # hid serve as scan-task name
 
     # 3. listen for the completion of all celery tasks
+    # === for the usage of time cost testing ===
+    start_time = time.clock()
     while task_list:
         for task in reversed(task_list):
             if not task.ready():
@@ -41,14 +43,16 @@ def launch(task_id, token, email):
                 data = task.get()
 
                 # 1. update data to database ThreadPoolExecutor
-                # data_save_thread = threading.Thread(target=data_save, args=(data['vulns'], data['details'], headers))
-                # data_save_thread.start()
                 executor.submit(data_save, data['vulns'], data['details'], headers)
 
                 # 2. generate mail attachment(scan report)
                 report_name = "{0}_report.html".format(data['details']['target'])
                 mail_sender.add_attachment(data['report'], report_name)
-            time.sleep(10)
+            time.sleep(5)
+
+    # === for the usage of time cost testing ===
+    span = time.clock() - start_time
+    print("\n[time cost] {0}min {1}s\n".format(span // 60, span % 60))
 
     # 4. all task finished, email notification
     mail_sender.reliable_send(email)
