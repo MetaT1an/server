@@ -9,7 +9,7 @@ backend_url = "redis://192.168.2.12"
 api_url = "http://127.0.0.1:5000"
 
 app = celery.Celery(broker=broker_url, backend=backend_url)
-executor = ThreadPoolExecutor(4)
+executor = ThreadPoolExecutor(2)
 
 
 def launch(task_id, token, email):
@@ -33,7 +33,8 @@ def launch(task_id, token, email):
 
     # 3. listen for the completion of all celery tasks
     # === for the usage of time cost testing ===
-    start_time = time.clock()
+    start_time = time.time()
+
     while task_list:
         for task in reversed(task_list):
             if not task.ready():
@@ -48,10 +49,10 @@ def launch(task_id, token, email):
                 # 2. generate mail attachment(scan report)
                 report_name = "{0}_report.html".format(data['details']['target'])
                 mail_sender.add_attachment(data['report'], report_name)
-            time.sleep(5)
+        time.sleep(5)
 
-    # === for the usage of time cost testing ===
-    span = time.clock() - start_time
+    # === for the usage of time cost testing ===```````
+    span = time.time() - start_time
     print("\n[time cost] {0}min {1}s\n".format(span // 60, span % 60))
 
     # 4. all task finished, email notification

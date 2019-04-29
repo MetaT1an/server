@@ -17,8 +17,9 @@ class Vul(Resource):
     @validator.check_login
     def post(self):
         args = self.parser.parse_args()
+        plg_name_simple = args['pluginname'][:90]   # too long to display in front ui
 
-        new_vul = md.Vul(hid=args['hid'], severity=args['severity'], pluginname=args['pluginname'], pluginset=args['pluginset'], count=args['count'])
+        new_vul = md.Vul(hid=args['hid'], severity=args['severity'], pluginname=plg_name_simple, pluginset=args['pluginset'], count=args['count'])
         db.session.add(new_vul)
         db.session.commit()
 
